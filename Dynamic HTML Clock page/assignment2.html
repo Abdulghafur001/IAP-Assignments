@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Time Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .light-mode {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        #toggleBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="body">
+
+    <h1>Current Time</h1>
+    <h2 id="clock">--:--:--</h2>
+    <button id="toggleBtn" onclick="toggleMode()">Toggle Light/Dark Mode</button>
+
+    <script>
+        function updateTimeAndBackground() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById("clock").textContent = hours + ":" + minutes + ":" + seconds;
+
+            const body = document.getElementById("body");
+            if (hours >= 5 && hours < 12) {
+                body.style.backgroundColor = "#FFFAE3"; // Morning - light yellow
+                body.style.color = "#000";
+            } else if (hours >= 12 && hours < 18) {
+                body.style.backgroundColor = "#FFEFD5"; // Afternoon - peach
+                body.style.color = "#000";
+            } else {
+                body.style.backgroundColor = "#2C3E50"; // Night - dark blue
+                body.style.color = "#FFF";
+            }
+        }
+
+        function toggleMode() {
+            const body = document.getElementById("body");
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+        }
+
+        setInterval(updateTimeAndBackground, 1000);
+        updateTimeAndBackground(); // Initial call
+    </script>
+</body>
+</html>
